@@ -2,7 +2,10 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="format-detection" content="telephone=no" />
   <meta name="theme-color" content="#0b3d2b" />
   <title>开机</title>
   <style>
@@ -741,12 +744,544 @@
       }
     }
 
+
+    /* =========================================================
+       Mobile compatibility layer: Android Chrome / iOS Safari
+       ========================================================= */
+
+    html {
+      height: 100%;
+      height: 100dvh;
+      overflow-x: hidden;
+      overscroll-behavior: none;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      min-height: 100%;
+      min-height: 100dvh;
+      overflow-x: hidden;
+      overscroll-behavior: none;
+      padding-left: env(safe-area-inset-left);
+      padding-right: env(safe-area-inset-right);
+    }
+
+    button,
+    .card {
+      touch-action: manipulation;
+    }
+
+    .hand {
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior-x: contain;
+    }
+
+    .card {
+      flex: 0 0 var(--card-w);
+    }
+
+    @supports (-webkit-touch-callout: none) {
+      .hand-section {
+        padding-bottom: calc(10px + env(safe-area-inset-bottom));
+      }
+
+      header {
+        padding-top: calc(8px + env(safe-area-inset-top));
+      }
+    }
+
+    @media (max-width: 760px) {
+      :root {
+        --card-w: clamp(38px, 11.4vw, 46px);
+        --card-h: clamp(58px, 16.8vw, 68px);
+        --radius-lg: 14px;
+        --radius-md: 12px;
+      }
+
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+        height: 100dvh;
+        overflow: hidden;
+      }
+
+      .app {
+        height: 100vh;
+        height: 100dvh;
+        min-height: 100vh;
+        min-height: 100dvh;
+        overflow: hidden;
+      }
+
+      header {
+        flex: 0 0 auto;
+        min-height: 48px;
+        padding: 7px 8px;
+        gap: 6px;
+      }
+
+      header h1 {
+        font-size: 16px;
+        gap: 7px;
+        min-width: 86px;
+        white-space: nowrap;
+      }
+
+      header h1::before {
+        width: 28px;
+        height: 28px;
+        border-radius: 9px;
+        font-size: 14px;
+      }
+
+      header .header-actions {
+        margin-left: auto;
+        gap: 5px;
+        flex-wrap: nowrap;
+      }
+
+      header button {
+        min-height: 32px;
+        padding: 7px 9px;
+        font-size: 12px;
+        box-shadow: none;
+      }
+
+      .board {
+        height: calc(100dvh - 50px);
+        min-height: 0;
+        grid-template-rows: auto minmax(0, 1fr) auto;
+        gap: 6px;
+        padding: 6px;
+        overflow: hidden;
+      }
+
+      .players {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 5px;
+      }
+
+      .player-box {
+        min-height: 54px;
+        padding: 6px;
+        border-radius: 10px;
+        box-shadow: none;
+      }
+
+      .player-box::after {
+        display: none;
+      }
+
+      .player-box.active {
+        box-shadow: 0 0 0 2px rgba(255, 211, 106, 0.22);
+      }
+
+      .player-box.active .player-title span:first-child::after {
+        content: "";
+        display: inline-block;
+        width: 6px;
+        height: 6px;
+        margin-left: 4px;
+        padding: 0;
+        border-radius: 50%;
+        background: var(--gold);
+        vertical-align: middle;
+      }
+
+      .player-title {
+        font-size: 12px;
+        margin-bottom: 3px;
+        gap: 2px;
+      }
+
+      .player-title span:last-child {
+        display: none;
+      }
+
+      .player-meta {
+        font-size: 11px;
+        line-height: 1.28;
+      }
+
+      .center {
+        min-height: 0;
+        grid-template-columns: 1fr;
+        grid-template-rows: auto minmax(0, 1fr);
+        gap: 6px;
+        overflow: hidden;
+      }
+
+      .center > .panel {
+        padding: 8px;
+        border-radius: 12px;
+        box-shadow: none;
+      }
+
+      .center > .panel:nth-child(1) {
+        order: 1;
+      }
+
+      .center > .panel:nth-child(2) {
+        order: 2;
+        min-height: 0;
+        overflow: hidden;
+      }
+
+      .center > .panel:nth-child(3) {
+        display: none;
+      }
+
+      .panel h2 {
+        font-size: 13px;
+        margin-bottom: 5px;
+      }
+
+      .panel h2::before {
+        width: 5px;
+        height: 14px;
+      }
+
+      .message {
+        min-height: 18px;
+        margin-bottom: 2px;
+        font-size: 12px;
+        line-height: 1.25;
+      }
+
+      .center > .panel:nth-child(1) > div[style] {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 2px 8px;
+        margin-top: 4px !important;
+        font-size: 11px !important;
+        line-height: 1.32 !important;
+      }
+
+      .center > .panel:nth-child(1) > div[style] > div {
+        min-width: 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .team-card-row {
+        margin-top: 0;
+        gap: 4px;
+      }
+
+      .mini-card-slot {
+        min-height: 26px;
+        padding: 3px 6px;
+        border-radius: 8px;
+      }
+
+      #teamInfoBox,
+      #finishOrderBox {
+        grid-column: 1 / -1;
+      }
+
+      .team-pill {
+        font-size: 10px;
+        padding: 2px 6px;
+        margin: 1px 2px 1px 0;
+      }
+
+      .result-line {
+        grid-column: 1 / -1;
+        font-size: 11px;
+        padding: 6px;
+        margin-top: 4px;
+        max-height: 58px;
+        overflow: auto;
+      }
+
+      .last-play-area {
+        gap: 6px;
+        min-height: 0;
+        display: grid;
+        grid-template-rows: 1fr 1fr;
+      }
+
+      .last-play-area > h2 {
+        display: none;
+      }
+
+      .last-play-area > div {
+        min-height: 0;
+      }
+
+      .last-play-area > div > h2 {
+        font-size: 12px;
+        margin: 0 0 4px;
+      }
+
+      .last-cards {
+        min-height: 62px;
+        height: 100%;
+        padding: 7px;
+        gap: 5px;
+        flex-wrap: nowrap;
+        align-content: center;
+        align-items: center;
+        overflow-x: auto;
+        overflow-y: hidden;
+      }
+
+      .card.small {
+        width: 34px;
+        height: 50px;
+        flex-basis: 34px;
+        min-width: 34px;
+        padding: 4px 3px;
+        border-radius: 7px;
+      }
+
+      .card.small .card-rank {
+        font-size: 12px;
+      }
+
+      .card.small .card-suit {
+        font-size: 13px;
+      }
+
+      .card.small .card-deck {
+        font-size: 8px;
+      }
+
+      .hand-section {
+        flex: 0 0 auto;
+        position: relative;
+        bottom: auto;
+        padding: 7px;
+        padding-bottom: calc(7px + env(safe-area-inset-bottom));
+        border-radius: 13px 13px 0 0;
+        box-shadow: 0 -6px 22px rgba(0, 0, 0, 0.28);
+      }
+
+      .hand-toolbar {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 5px;
+        margin-bottom: 6px;
+      }
+
+      .status {
+        font-size: 13px;
+        line-height: 1.25;
+      }
+
+      .selected-info {
+        font-size: 11px;
+        line-height: 1.25;
+        margin-top: 1px;
+        max-width: 100%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .hand-toolbar .header-actions {
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 5px;
+      }
+
+      .hand-toolbar button {
+        min-height: 38px;
+        padding: 6px 4px;
+        font-size: 12px;
+        box-shadow: none;
+        border-radius: 12px;
+      }
+
+      .hand {
+        height: 88px;
+        min-height: 88px;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        overflow-y: hidden;
+        align-items: flex-end;
+        gap: 5px;
+        padding: 20px 7px 7px;
+        scroll-padding-left: 7px;
+        touch-action: pan-x;
+      }
+
+      .card {
+        min-width: var(--card-w);
+        width: var(--card-w);
+        height: var(--card-h);
+        border-radius: 8px;
+        padding: 5px 4px;
+        border-width: 1.5px;
+      }
+
+      .card::after {
+        inset: 4px;
+        border-radius: 6px;
+      }
+
+      .card.selected {
+        transform: translateY(-15px);
+        box-shadow:
+          0 10px 18px rgba(0, 0, 0, 0.35),
+          0 0 0 2px rgba(255, 211, 106, 0.28);
+      }
+
+      .card-rank {
+        font-size: clamp(13px, 4vw, 16px);
+      }
+
+      .card-suit {
+        font-size: clamp(14px, 4.3vw, 17px);
+        margin-top: 1px;
+      }
+
+      .card-deck {
+        font-size: 8px;
+      }
+
+      .modal {
+        width: calc(100vw - 20px);
+        max-height: calc(100dvh - 30px);
+        padding: 14px;
+        border-radius: 14px;
+      }
+
+      .modal h2 {
+        font-size: 18px;
+      }
+
+      .modal p,
+      .modal li {
+        font-size: 13px;
+        line-height: 1.6;
+      }
+    }
+
+    @media (max-width: 380px) {
+      :root {
+        --card-w: 36px;
+        --card-h: 54px;
+      }
+
+      header h1 {
+        font-size: 15px;
+      }
+
+      header button {
+        padding: 6px 7px;
+        font-size: 11px;
+      }
+
+      .players {
+        gap: 4px;
+      }
+
+      .player-box {
+        padding: 5px;
+      }
+
+      .player-title {
+        font-size: 11px;
+      }
+
+      .player-meta {
+        font-size: 10px;
+      }
+
+      .hand {
+        height: 80px;
+        min-height: 80px;
+      }
+
+      .hand-toolbar button {
+        min-height: 34px;
+        font-size: 11px;
+      }
+    }
+
+    @media (orientation: landscape) and (max-height: 520px) {
+      header {
+        min-height: 38px;
+        padding: 5px 8px;
+      }
+
+      header h1::before {
+        width: 24px;
+        height: 24px;
+      }
+
+      .board {
+        height: calc(100dvh - 40px);
+        grid-template-rows: auto minmax(0, 1fr) auto;
+        padding: 5px;
+        gap: 5px;
+      }
+
+      .players {
+        grid-template-columns: repeat(4, 1fr);
+      }
+
+      .player-box {
+        min-height: 44px;
+      }
+
+      .center {
+        grid-template-columns: 230px minmax(0, 1fr);
+        grid-template-rows: minmax(0, 1fr);
+      }
+
+      .center > .panel:nth-child(1) {
+        order: 1;
+      }
+
+      .center > .panel:nth-child(2) {
+        order: 2;
+      }
+
+      .center > .panel:nth-child(3) {
+        display: none;
+      }
+
+      .last-play-area {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr;
+      }
+
+      .last-cards {
+        min-height: 58px;
+      }
+
+      .hand-section {
+        padding: 5px;
+      }
+
+      .hand-toolbar {
+        grid-template-columns: 1fr auto;
+        align-items: center;
+      }
+
+      .hand-toolbar .header-actions {
+        width: auto;
+        grid-template-columns: repeat(4, 64px);
+      }
+
+      .hand {
+        height: 76px;
+        min-height: 76px;
+        padding-top: 17px;
+      }
+    }
+
   </style>
 </head>
 <body>
 <div class="app">
   <header>
-    <h1>本地双副牌 510K</h1>
+    <h1>开机</h1>
     <div class="header-actions">
       <button class="secondary" id="btnRules">规则</button>
       <button class="secondary" id="btnAutoSort">整理手牌</button>
@@ -1341,6 +1876,7 @@ let dragMode = null
 let dragStartedOnCard = false
 let dragStartX = 0
 let lastDragCardId = null
+let suppressNextCardClick = false
 
 const elPlayers = document.getElementById('players')
 const elHand = document.getElementById('hand')
@@ -1833,24 +2369,25 @@ function applyDragSelection(cardId) {
 }
 
 function setupDragSelection() {
-  elHand.addEventListener('pointerdown', (e) => {
-    if (!isHumanTurn()) return
+  function beginDrag(clientX, target) {
+    if (!isHumanTurn()) return false
 
-    const cardEl = e.target.closest('.card[data-card-id]')
-    if (!cardEl) return
+    const cardEl = target.closest ? target.closest('.card[data-card-id]') : null
+    if (!cardEl) return false
 
     isDraggingCards = true
     dragStartedOnCard = true
     dragMode = null
-    dragStartX = e.clientX
+    dragStartX = clientX
     lastDragCardId = null
     elHand.classList.add('dragging')
-  })
+    return true
+  }
 
-  window.addEventListener('pointermove', (e) => {
+  function moveDrag(clientX, clientY, originalEvent) {
     if (!isDraggingCards || !dragStartedOnCard || !isHumanTurn()) return
 
-    const dx = e.clientX - dragStartX
+    const dx = clientX - dragStartX
 
     if (!dragMode && Math.abs(dx) >= 12) {
       dragMode = dx > 0 ? 'select' : 'deselect'
@@ -1859,11 +2396,17 @@ function setupDragSelection() {
 
     if (!dragMode) return
 
-    const cardId = getCardIdFromPoint(e.clientX, e.clientY)
-    applyDragSelection(cardId)
-  })
+    if (originalEvent && originalEvent.cancelable) {
+      originalEvent.preventDefault()
+    }
 
-  window.addEventListener('pointerup', () => {
+    suppressNextCardClick = true
+
+    const cardId = getCardIdFromPoint(clientX, clientY)
+    applyDragSelection(cardId)
+  }
+
+  function endDrag() {
     if (!isDraggingCards) return
 
     isDraggingCards = false
@@ -1871,17 +2414,39 @@ function setupDragSelection() {
     dragMode = null
     lastDragCardId = null
     elHand.classList.remove('dragging')
-  })
 
-  window.addEventListener('pointercancel', () => {
-    isDraggingCards = false
-    dragStartedOnCard = false
-    dragMode = null
-    lastDragCardId = null
-    elHand.classList.remove('dragging')
-  })
+    setTimeout(() => {
+      suppressNextCardClick = false
+    }, 80)
+  }
+
+  if (window.PointerEvent) {
+    elHand.addEventListener('pointerdown', (e) => {
+      beginDrag(e.clientX, e.target)
+    }, { passive: true })
+
+    window.addEventListener('pointermove', (e) => {
+      moveDrag(e.clientX, e.clientY, e)
+    }, { passive: false })
+
+    window.addEventListener('pointerup', endDrag, { passive: true })
+    window.addEventListener('pointercancel', endDrag, { passive: true })
+  }
+
+  // iOS Safari fallback. Some embedded browsers do not deliver pointer events consistently.
+  elHand.addEventListener('touchstart', (e) => {
+    if (!e.touches || e.touches.length !== 1) return
+    beginDrag(e.touches[0].clientX, e.target)
+  }, { passive: true })
+
+  elHand.addEventListener('touchmove', (e) => {
+    if (!e.touches || e.touches.length !== 1) return
+    moveDrag(e.touches[0].clientX, e.touches[0].clientY, e)
+  }, { passive: false })
+
+  elHand.addEventListener('touchend', endDrag, { passive: true })
+  elHand.addEventListener('touchcancel', endDrag, { passive: true })
 }
-
 
 function selectHint() {
   if (!isHumanTurn()) return
@@ -2149,6 +2714,11 @@ function renderHand() {
     if (selectedCardIds.has(card.id)) cardEl.classList.add('selected')
 
     cardEl.addEventListener('click', () => {
+      if (suppressNextCardClick) {
+        suppressNextCardClick = false
+        return
+      }
+
       if (!isHumanTurn()) return
 
       if (selectedCardIds.has(card.id)) {
